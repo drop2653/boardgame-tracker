@@ -1,3 +1,4 @@
+// components/PlayerForm.js
 import { useState } from 'react';
 
 const PlayerForm = ({ players, setPlayers }) => {
@@ -19,7 +20,11 @@ const PlayerForm = ({ players, setPlayers }) => {
 
   return (
     <div>
-      <input value={name} onChange={e => setName(e.target.value)} placeholder="이름 입력" />
+      <input
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="이름 입력"
+      />
       <button onClick={handleAdd}>플레이어 추가</button>
     </div>
   );
