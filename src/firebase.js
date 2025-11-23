@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "여기에 복사한 키",
-  authDomain: "프로젝트.firebaseapp.com",
-  projectId: "프로젝트 ID",
-  storageBucket: "프로젝트.appspot.com",
-  messagingSenderId: "숫자",
-  appId: "앱 ID"
+  apiKey: "AIzaSyBOs_Dh8XsMGY7yoOfMVJm_XMPMTiutggg",
+  authDomain: "boardgame-tracker-85f0d.firebaseapp.com",
+  projectId: "boardgame-tracker-85f0d",
+  storageBucket: "boardgame-tracker-85f0d.firebasestorage.app",
+  messagingSenderId: "491120692994",
+  appId: "1:491120692994:web:e2f74505052192d8283c1b"
 };
 
 const app = initializeApp(firebaseConfig);
