@@ -9,7 +9,7 @@ import { savePlayersToFirestore, loadPlayersFromFirestore } from './firebaseServ
 
 function App() {
   const [user, setUser] = useState(null);
-  const [players, setPlayers] = useState(() => {
+const [players, setPlayers] = useState([]);
     const saved = localStorage.getItem('players');
     return saved ? JSON.parse(saved) : [];
   });
@@ -39,12 +39,12 @@ useEffect(() => {
     <div>
       <h1>보드게임 전적 기록</h1>
       <LoginForm user={user} setUser={setUser} />
-      {user && (
-        <>
-          <PlayerForm players={players} setPlayers={setPlayers} />
-          <GameRecordForm players={players} setPlayers={setPlayers} />
-          <PlayerStats players={players} />
-        </>
+{user && Array.isArray(players) && (
+  <>
+    <PlayerForm players={players} setPlayers={setPlayers} />
+    <GameRecordForm players={players} setPlayers={setPlayers} />
+    <PlayerStats players={players} />
+  </>
       )}
     </div>
   );
