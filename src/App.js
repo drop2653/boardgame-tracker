@@ -1,3 +1,4 @@
+// App.js
 import { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -9,10 +10,7 @@ import { savePlayersToFirestore, loadPlayersFromFirestore } from './firebaseServ
 
 function App() {
   const [user, setUser] = useState(null);
-const [players, setPlayers] = useState([]);
-    const saved = localStorage.getItem('players');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -22,29 +20,29 @@ const [players, setPlayers] = useState([]);
   }, []);
 
   useEffect(() => {
-  if (user) {
-    loadPlayersFromFirestore(user.uid).then((data) => {
-      setPlayers(data || []);
-    });
-  }
-}, [user]);
+    if (user) {
+      loadPlayersFromFirestore(user.uid).then((data) => {
+        setPlayers(data || []);
+      });
+    }
+  }, [user]);
 
-useEffect(() => {
-  if (user) {
-    savePlayersToFirestore(user.uid, players);
-  }
-}, [players, user]);
+  useEffect(() => {
+    if (user) {
+      savePlayersToFirestore(user.uid, players);
+    }
+  }, [players, user]);
 
   return (
     <div>
       <h1>보드게임 전적 기록</h1>
       <LoginForm user={user} setUser={setUser} />
-{user && Array.isArray(players) && (
-  <>
-    <PlayerForm players={players} setPlayers={setPlayers} />
-    <GameRecordForm players={players} setPlayers={setPlayers} />
-    <PlayerStats players={players} />
-  </>
+      {user && Array.isArray(players) && (
+        <>
+          <PlayerForm players={players} setPlayers={setPlayers} />
+          <GameRecordForm players={players} setPlayers={setPlayers} />
+          <PlayerStats players={players} />
+        </>
       )}
     </div>
   );
