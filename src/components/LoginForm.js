@@ -1,3 +1,4 @@
+// components/LoginForm.js
 import { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -9,13 +10,10 @@ const LoginForm = ({ user, setUser }) => {
 
   const handleSubmit = async () => {
     try {
-      if (isLogin) {
-        const res = await signInWithEmailAndPassword(auth, email, pw);
-        setUser(res.user);
-      } else {
-        const res = await createUserWithEmailAndPassword(auth, email, pw);
-        setUser(res.user);
-      }
+      const res = isLogin
+        ? await signInWithEmailAndPassword(auth, email, pw)
+        : await createUserWithEmailAndPassword(auth, email, pw);
+      setUser(res.user);
     } catch (err) {
       alert(err.message);
     }
@@ -40,7 +38,7 @@ const LoginForm = ({ user, setUser }) => {
       <input placeholder="이메일" value={email} onChange={e => setEmail(e.target.value)} />
       <input placeholder="비밀번호" type="password" value={pw} onChange={e => setPw(e.target.value)} />
       <button onClick={handleSubmit}>{isLogin ? '로그인' : '회원가입'}</button>
-      <p onClick={() => setIsLogin(!isLogin)}>
+      <p onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', color: 'blue' }}>
         {isLogin ? '회원가입으로 전환' : '로그인으로 전환'}
       </p>
     </div>
@@ -48,3 +46,4 @@ const LoginForm = ({ user, setUser }) => {
 };
 
 export default LoginForm;
+
